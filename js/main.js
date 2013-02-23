@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $('#doThis').oldSchool();
+  $('#doThis').vintageTxt();
 })
 
 var lineHeight = $('#line').height();

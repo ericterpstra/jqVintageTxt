@@ -17,7 +17,12 @@
 
 
       return this.each( function() {
-        this.appendTo('<div id="oldSchoolContent" contenteditable="false"></div>');
+        // Add the content div for inserting text
+        $(this).html('<div id="oldSchoolContent" contenteditable="false"></div>');
+
+        // Make it nice and green
+        $(this).addClass('wrapper');
+
         var index      = 0
           , text_pos   = 0
           , str_length = settings.text[0].length
@@ -43,7 +48,7 @@
           } else
             setTimeout(type_text,settings.textSpeed);
         }
-
+        type_text();
       });
 
     }
@@ -54,7 +59,7 @@
    * @param Initial options object or method name
    * @return {*}
    */
-  $.fn.oldSchool = function( methods ) {
+  $.fn.vintageTxt = function( method ) {
 
     if ( methods[method] ) {
       return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
