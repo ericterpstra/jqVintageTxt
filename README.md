@@ -1,4 +1,4 @@
-# [HTML5 Boilerplate](http://html5boilerplate.com)
+# jQuery Vintage Text
 
 HTML5 Boilerplate is a professional front-end template for building fast,
 robust, and adaptable web apps or sites.
@@ -14,14 +14,9 @@ framework, so you're free to architect your code in the way that you want.
 
 ## Quick start
 
-Choose one of the following options:
+<div id="foo"></div>
 
-1. Download the latest stable release from
-   [html5boilerplate.com](http://html5boilerplate.com/) or a custom build from
-   [Initializr](http://www.initializr.com).
-2. Clone the git repo — `git clone
-   https://github.com/h5bp/html5-boilerplate.git` - and checkout the tagged
-   release you'd like to use.
+$('#foo').vintageTxt();
 
 
 ## Features
@@ -49,15 +44,12 @@ Choose one of the following options:
 
 ## Documentation
 
-Take a look at the [documentation table of
-contents](/h5bp/html5-boilerplate/blob/master/doc/TOC.md). This
-documentation is bundled with the project, which makes it readily available for
-offline reading and provides a useful starting point for any documentation
-you want to write about your project.
+Options:
+ * Text: An array of text. One line per array element.
+ * txtSpeed: The speed at which each letter is drawn (30ms)
+ * linePause: The duration of the pause between each line (800ms)
+ * maxRows: The maximum number of text lines shown at once (10)
 
+## Credits
 
-## Contributing
-
-Anyone and everyone is welcome to
-[contribute](/h5bp/html5-boilerplate/blob/master/CONTRIBUTING.md). Hundreds
-of developers have helped make the HTML5 Boilerplate what it is today.
+http://www.wittworksproductions.com/2012/12/scan-lines-with-javascript/
