@@ -98,7 +98,7 @@ textarea {
     background: #000;
     background-image: url('http://www.wittworksproductions.com/gallery/web/scan_lines/evenBG.gif');
     color: #aaa;
-    font-size: 14px;
+    font-size: 18px;
     font-family: "Courier",fixed,monospace;
     width: 640px;
     height: 513px;
@@ -120,11 +120,25 @@ img#imgOldmac {
     opacity: .6;
     z-index: 50;
     color: #0F0;
-    height: 640px;
+    max-height: 640px;
     width: 480px;
     text-shadow: 0 0 3px;
     text-transform:uppercase;
+}
 
+[contenteditable="true"] {
+    outline: none;
+}
+
+.wrapper input, .wrapper input:focus {
+    color: #0f0;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-family: "Courier",fixed,monospace;
+    text-shadow: 0 0 3px;
+    text-transform:uppercase;
 }
 
 /* ==========================================================================
