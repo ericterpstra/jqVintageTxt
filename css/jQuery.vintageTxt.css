@@ -1,0 +1,49 @@
+.wrapper {
+    position: relative;
+    width: 640px;
+    height: 513px;
+    margin: 60px auto 0;
+    overflow: hidden;
+    background: #000;
+    background-image: url('../img/evenBG.gif');
+}
+
+.oldSchoolContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 70px;
+    white-space: pre-wrap;
+    font-size: 18px;
+    font-family: "Courier",fixed,monospace;
+    color: #0F0;
+    text-shadow: 0 0 3px;
+    text-transform:uppercase;
+    opacity: .75;
+    z-index: 50;
+}
+
+.vintageMonitor {
+    position: relative;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    z-index: 60;
+}
+
+.oldSchoolContentText a{
+    color: #0F0;
+}
+
+.wrapper input, .wrapper input:focus {
+    color: #0f0;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-family: "Courier",fixed,monospace;
+    text-shadow: 0 0 3px;
+    text-transform:uppercase;
+}
