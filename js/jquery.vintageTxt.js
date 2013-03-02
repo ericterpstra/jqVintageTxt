@@ -1,35 +1,5 @@
 (function( $ ) {
 
-  /**
-   * Plugin Settings
-   */
-  var settings = {
-    'maxRows'   : 10,
-    'textSpeed' : 30,
-    'linePause' : 800,
-    'text'      : ['All your base','are belong to us.'],
-    'el'        : this
-  };
-
-  /**
-   * Plugin Methods
-   */
-  var methods = {
-
-    init : function( options ) {
-      $.extend( settings, options );
-      return this.each( function() {
-        plugin.setupDivs( this );
-        plugin.startTyping( settings );
-      });
-    },
-
-    reset : function( text ) {
-      settings.text = Object.prototype.toString.call(text) === "[object Array]" ? text : [text];
-      plugin.startTyping();
-    }
-
-  };
 
   /**
    * Define the Plugin
@@ -41,22 +11,99 @@
     } else if ( typeof method === 'object' || ! method ) {
       return methods.init.apply( this, arguments );
     } else {
-      $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+      $.error( 'Method ' +  method + ' does not exist on jQuery.vintageTxt' );
     }
   };
+
+  /**
+   * Plugin Settings
+   */
+  $.fn.vintageTxt.settings = {
+    'maxRows'          : 10,
+    'textSpeed'        : 30,
+    'linePause'        : 800,
+    'text'             : ['All your base','are belong to us.'],
+    'promptEnabled'    : true,
+    'showMonitor'      : true,
+    'onEnterKey'       : null,
+    'onFinishedTyping' : null
+  };
+
+  /**
+   * Plugin "Public" Methods
+   */
+  var methods = {
+
+    init : function( options ) {
+      return this.each( function() {
+        var $elem = $(this);
+        var settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
+        var plugin = new VintageTxt( settings, $elem );
+
+        // Create a reference to the plugin instance in jQuery's datastore.
+        $elem.data('vintageTxt', plugin);
+
+        plugin.render( plugin.startTyping );
+      });
+    },
+
+    reset : function( text ) {
+      this.settings.text = Object.prototype.toString.call(text) === "[object Array]" ? text : [text];
+      this.startTyping();
+    }
+
+  };
+
 
 
   //////////////////////////////
   // PRIVATE VARS & FUNCTIONS //
   //////////////////////////////
 
-  var plugin = {
+  function VintageTxt( settings, $elem ) {
+    this.settings = settings;
+    this.$elem = $elem;
+    this.$el = null;
+
+    return this;
+  }
+
+  VintageTxt.prototype = {
+
+    render : function render( callback ) {
+      var $el = this.$elem;
+
+      // Add the content div for inserting text
+      this.$elem.html( '<img src="img/oldmac.png" id="imgOldmac" />' +
+        '<div id="oldSchoolContent" contenteditable="false">' +
+        '<div id="oldSchoolContentText"></div><br/>' +
+        '<div id="oldSchoolContentInputDiv">' +
+        '>&nbsp;<input id="oldSchoolContentInput" type="text">' +
+        '</div>' +
+        '</div>');
+
+      $('#oldSchoolContentInputDiv').hide()
+      // Make it nice and green
+      $el.addClass('wrapper');
+
+      // Create event handler for enter key
+      $el.on('keyup.vintageTxt', this.inputSubmit );
+
+      $el.click(function() {
+        if ( $('#oldSchoolContentInput') )
+          $('#oldSchoolContentInput').focus();
+      });
+
+      if (callback) callback.call(this);
+    },
 
     startTyping : function startTyping() {
 
-      var index      = 0
+      var $self     = this
+        ,index      = 0
         , text_pos   = 0
-        , str_length = settings.text[0].length
+        , settings   = this.settings
+        , str_length = this.settings.text[0].length
         , contents
         , row;
 
@@ -76,7 +123,7 @@
             str_length = settings.text[index].length;
             setTimeout(typeText,800);
           } else {
-            plugin.endTyping();
+            $self.endTyping();
           }
         } else {
           setTimeout(typeText,settings.textSpeed);
@@ -87,7 +134,7 @@
     },
 
     endTyping : function endTyping() {
-      plugin.showPrompt();
+      this.showPrompt();
     },
 
     showPrompt : function showPrompt() {
@@ -97,38 +144,35 @@
 
     inputSubmit : function inputSubmit( e ) {
       var code = (e.keyCode ? e.keyCode : e.which);
+
       if(code == 13) { //Enter keycode
-        if ( $('#oldSchoolContentInput').val() ) {
-          methods.reset('Testing. Hi.');
-          $('#oldSchoolContentInput').val('');
-          $('#oldSchoolContentInputDiv').hide();
+        var $elem = $(this);
+        var self = $elem.data('vintageTxt');
+
+        if ( $elem.find('#oldSchoolContentInput').val() ) {
+          self.settings.onEnterKey ? self.settings.onEnterKey( e ) : self.doRandomSnark();
+          $elem.find('#oldSchoolContentInput').val('');
+          $elem.find('#oldSchoolContentInputDiv').hide();
         }
       }
     },
 
-    setupDivs : function setupDivs( el ) {
-      // Add the content div for inserting text
-      $(el).html( '<img src="img/oldmac.png" id="imgOldmac" />' +
-                  '<div id="oldSchoolContent" contenteditable="false">' +
-                  '<div id="oldSchoolContentText"></div><br/>' +
-                  '<div id="oldSchoolContentInputDiv">' +
-                  '>&nbsp;<input id="oldSchoolContentInput" type="text">' +
-                  '</div>' +
-                  '</div>');
+    doRandomSnark : function doRandomSnark() {
+      methods.reset.call(this, [this.$elem.find('#oldSchoolContentInput').val(),this.getRandomSnark()]);
+    },
 
-      $('#oldSchoolContentInputDiv').hide()
-      // Make it nice and green
-      $(el).addClass('wrapper');
-
-      // Create event handler for enter key
-      $(el).on('keyup', plugin.inputSubmit );
-
-      $(el).click(function() {
-        if ( $('#oldSchoolContentInput') )
-          $('#oldSchoolContentInput').focus();
-      });
-
+    getRandomSnark : function getRandomSnark() {
+      var quoteIndex = Math.floor(Math.random()*5);
+      var quotes = [
+        "How profound.",
+        "Words of genius.",
+        "Said the blind man as he picked up his hammer and saw.",
+        "Says you.",
+        "<a href='https://www.youtube.com/watch?v=PpccpglnNf0'>Goats Yelling Like People</a>"
+      ];
+      return quotes[quoteIndex];
     }
+
   };
 
 })( jQuery );
