@@ -74,15 +74,15 @@
       var $el = this.$elem;
 
       // Add the content div for inserting text
-      this.$elem.html( '<img src="img/oldmac.png" id="imgOldmac" />' +
-        '<div id="oldSchoolContent" contenteditable="false">' +
-        '<div id="oldSchoolContentText"></div><br/>' +
+      this.$elem.html( '<img src="img/oldmac.png" class="imgOldmac" />' +
+        '<div id="oldSchoolContent" class="oldSchoolContent" contenteditable="false">' +
+        '<div id="oldSchoolContentText" class="oldSchoolContentText"></div><br/>' +
         '<div id="oldSchoolContentInputDiv">' +
         '>&nbsp;<input id="oldSchoolContentInput" type="text">' +
         '</div>' +
         '</div>');
 
-      $('#oldSchoolContentInputDiv').hide()
+      this.$elem.find('#oldSchoolContentInputDiv').hide()
       // Make it nice and green
       $el.addClass('wrapper');
 
@@ -90,8 +90,8 @@
       $el.on('keyup.vintageTxt', this.inputSubmit );
 
       $el.click(function() {
-        if ( $('#oldSchoolContentInput') )
-          $('#oldSchoolContentInput').focus();
+        if ( $el.find('#oldSchoolContentInput') )
+          $el.find('#oldSchoolContentInput').focus();
       });
 
       if (callback) callback.call(this);
@@ -100,6 +100,7 @@
     startTyping : function startTyping() {
 
       var $self     = this
+        , textDiv   = this.$elem.find('#oldSchoolContentText')
         ,index      = 0
         , text_pos   = 0
         , settings   = this.settings
@@ -113,7 +114,7 @@
         while(row<index)  {
           contents += settings.text[row++] + '<br/>';
         }
-        $('#oldSchoolContentText').html(contents + settings.text[index].substring(0,text_pos) );
+        textDiv.html(contents + settings.text[index].substring(0,text_pos) );
         if( text_pos++ == str_length )
         {
           text_pos=0;
@@ -138,8 +139,8 @@
     },
 
     showPrompt : function showPrompt() {
-      $('#oldSchoolContentInputDiv').show();
-      $('#oldSchoolContentInput').focus();
+      this.$elem.find('#oldSchoolContentInputDiv').show();
+      this.$elem.find('#oldSchoolContentInput').focus();
     },
 
     inputSubmit : function inputSubmit( e ) {
