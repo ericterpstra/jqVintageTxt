@@ -1,8 +1,21 @@
 $(function() {
-    var v1 = $('#doThis');
-  v1.vintageTxt()
-    .delay(4500)
-    .vintageTxt('reset',['I have been reset.','This is awesome.']);
+    var el = $('#doThis');
+    var p1 = el.vintageTxt({
+      text : ["Good Morning.","It's a lovely day, isn't it?","I will not be enjoying it, because I have no legs."]
+      //, onFinishedTyping : p2
+    });
+
+    function p2() {
+      el.vintageTxt('reset',[
+          "Don't worry."
+          ,"I still like being a computer."
+          ,"And I like you."
+        ]
+        ,{
+          onFinishedTyping : null
+      });
+    }
+    test = 0;
   //$('#doThis2').vintageTxt({text:['Testing.']});
 
 /*

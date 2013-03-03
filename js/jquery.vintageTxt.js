@@ -29,13 +29,23 @@
     'onFinishedTyping' : null
   };
 
+  $.fn.vintageTxt.start = function start() {
+    if ( this.data('vintageTxt') ) {
+      var self = this.data('vintageTxt');
+      self.startTyping();
+    } else {
+      $.error( 'Please initialize the plugin first' );
+    }
+  }
+
   /**
    * Plugin "Public" Methods
    */
   var methods = {
 
     init : function( options ) {
-      return this.each( function() {
+      var returnObj = this.each( function() {
+        
         var $elem = $(this);
         var settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
         var plugin = new VintageTxt( settings, $elem );
@@ -45,13 +55,20 @@
 
         plugin.render( plugin.startTyping );
       });
+       return returnObj;
     },
 
-    reset : function( text ) {
-      var self = this.data('vintageTxt');  
-      self.settings.text = Object.prototype.toString.call(text) === "[object Array]" ? text : [text];
-      self.startTyping();
-      return this;
+    reset : function( text, options ) {
+      var self = this.data('vintageTxt');
+      if (self) {
+
+        if (options) self.settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
+        self.settings.text = Object.prototype.toString.call(text) === "[object Array]" ? text : [text];
+        self.startTyping();
+        return this;
+      } else {
+        $.error('Please initialize the plugin before calling this method');
+      } 
     }
 
   };
@@ -137,7 +154,12 @@
     },
 
     endTyping : function endTyping() {
-      this.showPrompt();
+      if (this.settings.onFinishedTyping) {
+        this.settings.onFinishedTyping();
+        this.settings.onFinishedTyping = null;
+      } 
+      
+      if( this.showPrompt ) this.showPrompt();
     },
 
     showPrompt : function showPrompt() {
