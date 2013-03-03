@@ -1,13 +1,17 @@
 (function( $ ) {
 
-
   /**
    * Define the Plugin
    * @param method Initial options object or method name
    */
   $.fn.vintageTxt = function( method ) {
+
     if ( methods[method] ) {
-      return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+      if ( this.data('vintageTxt') ) {
+        return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
+      } else {
+        $.error( 'Please initialize the plugin before calling ' + method );
+      }
     } else if ( typeof method === 'object' || ! method ) {
       return methods.init.apply( this, arguments );
     } else {
@@ -25,18 +29,10 @@
     'text'             : ['All your base','are belong to us.'],
     'promptEnabled'    : true,
     'showMonitor'      : true,
+    'autoStart'        : true,
     'onEnterKey'       : null,
     'onFinishedTyping' : null
   };
-
-  $.fn.vintageTxt.start = function start() {
-    if ( this.data('vintageTxt') ) {
-      var self = this.data('vintageTxt');
-      self.startTyping();
-    } else {
-      $.error( 'Please initialize the plugin first' );
-    }
-  }
 
   /**
    * Plugin "Public" Methods
@@ -53,7 +49,11 @@
         // Create a reference to the plugin instance in jQuery's datastore.
         $elem.data('vintageTxt', plugin);
 
-        plugin.render( plugin.startTyping );
+        if ( settings.autoStart && settings.text ){
+          plugin.render( plugin.startTyping );
+        } else {
+          plugin.render();
+        }
       });
        return returnObj;
     },
@@ -63,12 +63,36 @@
       if (self) {
 
         if (options) self.settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
-        self.settings.text = Object.prototype.toString.call(text) === "[object Array]" ? text : [text];
+        self.settings.text = isArray(text) ? text : [text];
         self.startTyping();
         return this;
-      } else {
-        $.error('Please initialize the plugin before calling this method');
       } 
+      return this;
+    },
+
+    playMany : function (textArrays) {
+      if ( !isArray(textArrays) || textArrays.length < 1 ) {
+        $.error( 'This function requires an array as the first argument' )
+      } else {
+        var self = this.data('vintageTxt');  
+        var showPromptOnEnd = self.settings.promptEnabled;
+
+        function playArray() {
+          self.settings.text = textArrays.shift();
+          self.settings.promptEnabled = false;
+          var next = null;
+          if ( textArrays.length ) {
+            next = function(){setTimeout(playArray, 800);};
+          } else { 
+            self.settings.promptEnabled = true;
+            next = null;
+          }
+          self.settings.onFinishedTyping = next;
+          self.startTyping();
+        }
+        playArray();
+      }
+      return this;
     }
 
   };
@@ -118,14 +142,14 @@
 
     startTyping : function startTyping() {
 
-      var $self     = this
-        , textDiv   = this.$elem.find('#oldSchoolContentText')
-        ,index      = 0
+      var $self      = this
+        , textDiv    = this.$elem.find('#oldSchoolContentText')
+        , index      = 0
         , text_pos   = 0
         , settings   = this.settings
         , str_length = this.settings.text[0].length
-        , contents
-        , row;
+        , contents   = ''
+        , row        = 0;
 
       var typeText = function typeText() {
         contents = '';
@@ -150,7 +174,14 @@
         }
       };
 
-      typeText();
+      if ( $self.settings.text && $self.settings.text.length ) {
+        this.$elem.find('#oldSchoolContentInput').val('');
+        this.$elem.find('#oldSchoolContentInputDiv').hide();
+        typeText();  
+      } else {
+        textDiv.empty();
+      }
+      
     },
 
     endTyping : function endTyping() {
@@ -159,7 +190,9 @@
         this.settings.onFinishedTyping = null;
       } 
       
-      if( this.showPrompt ) this.showPrompt();
+      if( this.settings.promptEnabled ) {
+        this.showPrompt();
+      } 
     },
 
     showPrompt : function showPrompt() {
@@ -173,11 +206,9 @@
       if(code == 13) { //Enter keycode
         var $elem = $(this);
         var self = $elem.data('vintageTxt');
-
-        if ( $elem.find('#oldSchoolContentInput').val() ) {
-          self.settings.onEnterKey ? self.settings.onEnterKey( e ) : self.doRandomSnark();
-          $elem.find('#oldSchoolContentInput').val('');
-          $elem.find('#oldSchoolContentInputDiv').hide();
+        var val = $elem.find('#oldSchoolContentInput').val()
+        if ( val ) {
+          self.settings.onEnterKey ? self.settings.onEnterKey( e, val ) : self.doRandomSnark();
         }
       }
     },
@@ -200,4 +231,8 @@
 
   };
 
+
+  function isArray(obj) {
+    return obj ? Object.prototype.toString.call(obj) === "[object Array]" : false;
+  }
 })( jQuery );

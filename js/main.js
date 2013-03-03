@@ -1,21 +1,33 @@
 $(function() {
-    
-    var el = $('#doThis').delay(1500).fadeOut(500);
-    
-    var p1 = el.vintageTxt({
-      text : ["Good Morning.","It's a lovely day, isn't it?","I will not be enjoying it, because I have no legs."]
-      //, onFinishedTyping : p2
-    });
+  
+  var VintageTxtTest = {
+    el : $('#doThis')
+  };
 
-    function p2() {
-      el.vintageTxt('reset',[
-          "Don't worry."
-          ,"I still like being a computer."
-          ,"And I like you."
-        ]
-        ,{
-          onFinishedTyping : null
-      });
+  VintageTxtTest.go = function go() {
+    var texts = [
+      ["Howdy Ho, kids!","Merry Christmas!"]
+      ,["Test Screen Two","What is 1 + 1?"]
+    ];
+    var self = VintageTxtTest;
+
+    self.el.vintageTxt({
+      autoStart   : false
+      ,onEnterKey : VintageTxtTest.checkInput
+    });
+    self.el.vintageTxt('playMany',texts);
+  };
+
+  VintageTxtTest.checkInput = function checkInput(e, inputResult) {
+    var self = VintageTxtTest;
+    if (inputResult && inputResult == 2) {
+      self.el.vintageTxt('reset'
+        ,[ "Correct!", "You are the smart!" ]
+        ,{ onEnterKey : VintageTxtTest.go }
+      );
     }
+  };
+
+  VintageTxtTest.go();
 
 });
