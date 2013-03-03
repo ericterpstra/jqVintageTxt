@@ -48,8 +48,10 @@
     },
 
     reset : function( text ) {
-      this.settings.text = Object.prototype.toString.call(text) === "[object Array]" ? text : [text];
-      this.startTyping();
+      var self = this.data('vintageTxt');  
+      self.settings.text = Object.prototype.toString.call(text) === "[object Array]" ? text : [text];
+      self.startTyping();
+      return this;
     }
 
   };
@@ -159,7 +161,7 @@
     },
 
     doRandomSnark : function doRandomSnark() {
-      methods.reset.call(this, [this.$elem.find('#oldSchoolContentInput').val(),this.getRandomSnark()]);
+      methods.reset.call(this.$elem, [this.$elem.find('#oldSchoolContentInput').val(),this.getRandomSnark()]);
     },
 
     getRandomSnark : function getRandomSnark() {
