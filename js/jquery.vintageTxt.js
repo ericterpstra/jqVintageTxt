@@ -36,9 +36,21 @@
 
   /**
    * Plugin "Public" Methods
+   * 
+   * These methods are called by the client
+   * with $(el).vintageTxt('methodName', args...)
    */
   var methods = {
 
+    /**
+     * Instantiate and initialize the plugin
+     * for the specified element. User/client
+     * may pass in a set of options to override
+     * the defaults.
+     * 
+     * @param  {*} options
+     * @return {*}
+     */
     init : function( options ) {
       var returnObj = this.each( function() {
         
@@ -58,6 +70,17 @@
        return returnObj;
     },
 
+    /**
+     * A helper function that is similar to init
+     * but does not re-render the plugin. A text
+     * array or single string can be passed as the
+     * first param, and options can be overridden
+     * with the second param.
+     * 
+     * @param  {array} text
+     * @param  {*} options
+     * @return {*}
+     */
     reset : function( text, options ) {
       var self = this.data('vintageTxt');
       if (self) {
@@ -70,6 +93,15 @@
       return this;
     },
 
+    /**
+     * Accepts an array of text arrays,
+     * (e.g. [['Hello.','Line2'], ['Hi page 2','foo']])
+     * Each text array will reset the screen and start
+     * typing from line one.
+     * 
+     * @param  {array} textArrays
+     * @return {}
+     */
     playMany : function (textArrays) {
       if ( !isArray(textArrays) || textArrays.length < 1 ) {
         $.error( 'This function requires an array as the first argument' )
@@ -98,15 +130,15 @@
   };
 
 
-
-  //////////////////////////////
-  // PRIVATE VARS & FUNCTIONS //
-  //////////////////////////////
+  /* *********************
+   *                     *
+   *    Plugin Object    *
+   *                     *
+   ********************* */
 
   function VintageTxt( settings, $elem ) {
     this.settings = settings;
     this.$elem = $elem;
-    this.$el = null;
 
     return this;
   }
@@ -232,7 +264,15 @@
   };
 
 
+  /* **************
+   *              *
+   *    Utils     *
+   *              *
+   *************** */
+
   function isArray(obj) {
     return obj ? Object.prototype.toString.call(obj) === "[object Array]" : false;
   }
+
+
 })( jQuery );
