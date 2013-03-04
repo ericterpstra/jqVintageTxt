@@ -23,15 +23,16 @@
    * Plugin Settings
    */
   $.fn.vintageTxt.settings = {
-    'maxRows'          : 10,
-    'textSpeed'        : 30,
-    'linePause'        : 800,
-    'text'             : ['All your base','are belong to us.'],
-    'promptEnabled'    : true,
-    'showMonitor'      : true,
-    'autoStart'        : true,
-    'onEnterKey'       : null,
-    'onFinishedTyping' : null
+     'overlayImage'     : null
+    ,'maxRows'          : 10
+    ,'textSpeed'        : 30
+    ,'linePause'        : 800
+    ,'text'             : ['All your base','are belong to us.']
+    ,'promptEnabled'    : true
+    ,'showMonitor'      : true
+    ,'autoStart'        : true
+    ,'onEnterKey'       : null
+    ,'onFinishedTyping' : null
   };
 
   /**
@@ -136,6 +137,15 @@
    *                     *
    ********************* */
 
+  /**
+   * Constructor Function
+   * 
+   * 
+   * 
+   * @param  {*} settings The extended options object.
+   * @param  {*} $elem The jQuery wrapped element
+   * @return {VintageTxt}
+   */
   function VintageTxt( settings, $elem ) {
     this.settings = settings;
     this.$elem = $elem;
@@ -149,24 +159,31 @@
       var $el = this.$elem;
 
       // Add the content div for inserting text
-      this.$elem.html( '<img src="img/oldmac.png" class="imgOldmac" />' +
-        '<div id="oldSchoolContent" class="oldSchoolContent" contenteditable="false">' +
-        '<div id="oldSchoolContentText" class="oldSchoolContentText"></div><br/>' +
-        '<div id="oldSchoolContentInputDiv">' +
-        '>&nbsp;<input id="oldSchoolContentInput" type="text">' +
+      this.$elem.html( 
+        '<div id="vtxt_Content" class="vtxt_oldSchoolContent" contenteditable="false">' +
+        '<div id="vtxt_ContentText" class="vtxt_oldSchoolContentText"></div><br/>' +
+        '<div id="vtxt_ContentInputDiv">' +
+        '>&nbsp;<input id="vtxt_ContentInput" type="text">' +
         '</div>' +
         '</div>');
 
-      this.$elem.find('#oldSchoolContentInputDiv').hide()
+      if( this.settings.overlayImage ) {
+        var imgTag = '<img src="' + this.settings.overlayImage + '" class="vintageTxt_overlay" />';  
+        this.$elem.prepend( imgTag );
+      } else {
+        this.$elem.addClass('vtxt_defaultBorder');
+      }
+
+      this.$elem.find('#vtxt_ContentInputDiv').hide()
       // Make it nice and green
-      $el.addClass('wrapper');
+      $el.addClass('vtxt_wrapper');
 
       // Create event handler for enter key
       $el.on('keyup.vintageTxt', this.inputSubmit );
 
       $el.click(function() {
-        if ( $el.find('#oldSchoolContentInput') )
-          $el.find('#oldSchoolContentInput').focus();
+        if ( $el.find('#vtxt_ContentInput') )
+          $el.find('#vtxt_ContentInput').focus();
       });
 
       if (callback) callback.call(this);
@@ -175,7 +192,7 @@
     startTyping : function startTyping() {
 
       var $self      = this
-        , textDiv    = this.$elem.find('#oldSchoolContentText')
+        , textDiv    = this.$elem.find('#vtxt_ContentText')
         , index      = 0
         , text_pos   = 0
         , settings   = this.settings
@@ -207,8 +224,8 @@
       };
 
       if ( $self.settings.text && $self.settings.text.length ) {
-        this.$elem.find('#oldSchoolContentInput').val('');
-        this.$elem.find('#oldSchoolContentInputDiv').hide();
+        this.$elem.find('#vtxt_ContentInput').val('');
+        this.$elem.find('#vtxt_ContentInputDiv').hide();
         typeText();  
       } else {
         textDiv.empty();
@@ -228,8 +245,8 @@
     },
 
     showPrompt : function showPrompt() {
-      this.$elem.find('#oldSchoolContentInputDiv').show();
-      this.$elem.find('#oldSchoolContentInput').focus();
+      this.$elem.find('#vtxt_ContentInputDiv').show();
+      this.$elem.find('#vtxt_ContentInput').focus();
     },
 
     inputSubmit : function inputSubmit( e ) {
@@ -238,7 +255,7 @@
       if(code == 13) { //Enter keycode
         var $elem = $(this);
         var self = $elem.data('vintageTxt');
-        var val = $elem.find('#oldSchoolContentInput').val()
+        var val = $elem.find('#vtxt_ContentInput').val()
         if ( val ) {
           self.settings.onEnterKey ? self.settings.onEnterKey( e, val ) : self.doRandomSnark();
         }
@@ -246,20 +263,8 @@
     },
 
     doRandomSnark : function doRandomSnark() {
-      methods.reset.call(this.$elem, [this.$elem.find('#oldSchoolContentInput').val(),this.getRandomSnark()]);
-    },
-
-    getRandomSnark : function getRandomSnark() {
-      var quoteIndex = Math.floor(Math.random()*5);
-      var quotes = [
-        "How profound.",
-        "Words of genius.",
-        "Said the blind man as he picked up his hammer and saw.",
-        "Says you.",
-        "<a href='https://www.youtube.com/watch?v=PpccpglnNf0'>Goats Yelling Like People</a>"
-      ];
-      return quotes[quoteIndex];
-    }
+      methods.reset.call(this.$elem, [this.$elem.find('#vtxt_ContentInput').val(),getRandomSnark()]);
+    }, 
 
   };
 
@@ -274,5 +279,16 @@
     return obj ? Object.prototype.toString.call(obj) === "[object Array]" : false;
   }
 
+  function getRandomSnark() {
+      var quoteIndex = Math.floor(Math.random()*5);
+      var quotes = [
+        "How profound.",
+        "Words of genius.",
+        "Said the blind man as he picked up his hammer and saw.",
+        "Says you.",
+        "<a href='https://www.youtube.com/watch?v=PpccpglnNf0'>Goats Yelling Like People</a>"
+      ];
+      return quotes[quoteIndex];
+  }
 
 })( jQuery );

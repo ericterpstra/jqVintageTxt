@@ -12,8 +12,9 @@ $(function() {
     var self = VintageTxtTest;
 
     self.el.vintageTxt({
-      autoStart   : false
-      ,onEnterKey : VintageTxtTest.checkInput
+      autoStart     : false
+      ,onEnterKey   : VintageTxtTest.checkInput
+      ,overlayImage : 'img/oldmac.png'
     });
     self.el.vintageTxt('playMany',texts);
   };

@@ -1,4 +1,4 @@
-.wrapper {
+.vtxt_wrapper {
     position: relative;
     width: 640px;
     height: 513px;
@@ -8,12 +8,12 @@
     background-image: url('../img/evenBG.gif');
 }
 
-.oldSchoolContent {
+.vtxt_oldSchoolContent {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
+    height: 500px;
+    width: 374px;
     padding: 70px;
     white-space: pre-wrap;
     font-size: 18px;
@@ -25,19 +25,11 @@
     z-index: 50;
 }
 
-.vintageMonitor {
-    position: relative;
-    top: 0;
-    left: 0;
-    opacity: 1;
-    z-index: 60;
-}
-
-.oldSchoolContentText a{
+.vtxt_oldSchoolContentText a{
     color: #0F0;
 }
 
-.wrapper input, .wrapper input:focus {
+.vtxt_wrapper input, .vtxt_wrapper input:focus {
     color: #0f0;
     background: none;
     border: none;
@@ -46,4 +38,11 @@
     font-family: "Courier",fixed,monospace;
     text-shadow: 0 0 3px;
     text-transform:uppercase;
+}
+
+.vtxt_defaultBorder {
+    -webkit-box-shadow: inset 0px 0px 85px 5px rgba(0, 0, 0, 1);
+    box-shadow: inset 0px 0px 85px 5px rgba(0, 0, 0, 1);
+    -webkit-border-radius: 35px;
+    border-radius: 35px;
 }
