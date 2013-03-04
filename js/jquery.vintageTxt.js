@@ -58,7 +58,7 @@
      * @return {*}
      */
     init : function( options ) {
-      var returnObj = this.each( function() {
+      return this.each( function() {
         
         // Create a reference to the element
         var $elem = $(this);
@@ -79,7 +79,6 @@
           plugin.render();
         }
       });
-       return returnObj;
     },
 
     /**
@@ -96,12 +95,10 @@
     reset : function( text, options ) {
       var self = this.data('vintageTxt');
       if (self) {
-
         if (options) self.settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
         self.settings.text = isArray(text) ? text : [text];
         self.startTyping();
-        return this;
-      } 
+      }
       return this;
     },
 
@@ -127,8 +124,8 @@
           var next = null;
           if ( textArrays.length ) {
             next = function(){setTimeout(playArray, 800);};
-          } else { 
-            self.settings.promptEnabled = true;
+          } else {
+            self.settings.promptEnable = showPromptOnEnd;
             next = null;
           }
           self.settings.onFinishedTyping = next;
@@ -137,7 +134,13 @@
         playArray();
       }
       return this;
+    },
+
+    updateOptions : function ( options ) {
+      var self = this.data('vintageTxt');
+      if (options) self.settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
     }
+
 
   };
 
@@ -270,8 +273,7 @@
       // Call the onFinishedTyping callback
       if (this.settings.onFinishedTyping) {
         this.settings.onFinishedTyping();
-        this.settings.onFinishedTyping = null;
-      } 
+      }
       
       // Show the input prompt
       if( this.settings.promptEnabled ) {
@@ -303,7 +305,7 @@
     // Default callback for onEnterKey. For demo purposes
     doRandomSnark : function doRandomSnark() {
       methods.reset.call(this.$elem, [this.$elem.find('#vtxt_ContentInput').val(),getRandomSnark()]);
-    }, 
+    }
 
   };
 

@@ -1,7 +1,7 @@
 .vtxt_wrapper {
     position: relative;
-    width: 640px;
-    height: 513px;
+    width: 598px;
+    height: 665px;
     margin: 60px auto 0;
     overflow: hidden;
     background: #000;
@@ -10,23 +10,30 @@
 
 .vtxt_oldSchoolContent {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 500px;
-    width: 374px;
-    padding: 70px;
+    top: 79px;
+    left: 60px;
+    height: 214px;
+    width: 280px;
+    padding: 30px 43px;
     white-space: pre-wrap;
-    font-size: 18px;
+    font-size: 14px;
     font-family: "Courier",fixed,monospace;
+    line-height: 16px;
     color: #0F0;
     text-shadow: 0 0 3px;
-    text-transform:uppercase;
+    text-transform: uppercase;
     opacity: .75;
     z-index: 50;
+    box-shadow: inset 0px 0px 85px 5px rgba(0, 0, 0, 1);
 }
 
 .vtxt_oldSchoolContentText a{
     color: #0F0;
+}
+
+.vintageTxt_overlay{
+    position: relative;
+    z-index: 99;
 }
 
 .vtxt_wrapper input, .vtxt_wrapper input:focus {
@@ -34,10 +41,10 @@
     background: none;
     border: none;
     outline: none;
-    font-size: 18px;
+    font-size: 13px;
     font-family: "Courier",fixed,monospace;
     text-shadow: 0 0 3px;
-    text-transform:uppercase;
+    text-transform: uppercase;
 }
 
 .vtxt_defaultBorder {
