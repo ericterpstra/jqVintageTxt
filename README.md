@@ -34,10 +34,11 @@ A more robust example:
 
 $('#foo').vintageTxt({
   text: ["And I think to myself,","what a wonderful world.","Oooh, yeah..."],
-  txtSpeed: 50,
+  textSpeed: 150,
+  linePause: 500,
   promptEnabled: false,
   onFinishedTyping: function() {
-    $('#foo').delay(2000).fadeOut(2000);
+    $('#foo').delay(500).fadeOut(2000);
   }
 });
 

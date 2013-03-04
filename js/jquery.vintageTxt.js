@@ -190,7 +190,7 @@
       }
 
       // Make sure the input box starts out hidden
-      if( !this.settings.autoStart && promptEnabled ) {
+      if( !this.settings.autoStart && this.settings.promptEnabled ) {
         $el.find('#vtxt_ContentInputDiv').hide()
       }
 
