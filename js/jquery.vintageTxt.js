@@ -2,17 +2,22 @@
 
   /**
    * Define the Plugin
+   * Most of this code came from the official jQuery Guide
+   * to developing plugins: http://docs.jquery.com/Plugins/Authoring
+   * 
    * @param method Initial options object or method name
    */
   $.fn.vintageTxt = function( method ) {
 
     if ( methods[method] ) {
+      // Check to see if the plugin is instantiated on this element
       if ( this.data('vintageTxt') ) {
         return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
       } else {
         $.error( 'Please initialize the plugin before calling ' + method );
       }
     } else if ( typeof method === 'object' || ! method ) {
+      // If the argument is an object, pass it to init()
       return methods.init.apply( this, arguments );
     } else {
       $.error( 'Method ' +  method + ' does not exist on jQuery.vintageTxt' );
@@ -21,15 +26,15 @@
 
   /**
    * Plugin Settings
+   * See README.md for descriptions.
    */
   $.fn.vintageTxt.settings = {
      'overlayImage'     : null
+    ,'text'             : ['All your base','are belong to us.']
     ,'maxRows'          : 10
     ,'textSpeed'        : 30
     ,'linePause'        : 800
-    ,'text'             : ['All your base','are belong to us.']
     ,'promptEnabled'    : true
-    ,'showMonitor'      : true
     ,'autoStart'        : true
     ,'onEnterKey'       : null
     ,'onFinishedTyping' : null
@@ -55,13 +60,19 @@
     init : function( options ) {
       var returnObj = this.each( function() {
         
+        // Create a reference to the element
         var $elem = $(this);
+
+        // Extend the settings object with user options
         var settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
+
+        // Create the VintageText object
         var plugin = new VintageTxt( settings, $elem );
 
         // Create a reference to the plugin instance in jQuery's datastore.
         $elem.data('vintageTxt', plugin);
 
+        // Render the plugin, and start typing if necessary
         if ( settings.autoStart && settings.text ){
           plugin.render( plugin.startTyping );
         } else {
@@ -140,7 +151,10 @@
   /**
    * Constructor Function
    * 
-   * 
+   * The VintageTxt object will encapsulate
+   * all the logic necessary for the funtion.
+   * I will usually refer to it as 'self'
+   * within its methods.
    * 
    * @param  {*} settings The extended options object.
    * @param  {*} $elem The jQuery wrapped element
@@ -159,7 +173,7 @@
       var $el = this.$elem;
 
       // Add the content div for inserting text
-      this.$elem.html( 
+      $el.html( 
         '<div id="vtxt_Content" class="vtxt_oldSchoolContent" contenteditable="false">' +
         '<div id="vtxt_ContentText" class="vtxt_oldSchoolContentText"></div><br/>' +
         '<div id="vtxt_ContentInputDiv">' +
@@ -167,31 +181,45 @@
         '</div>' +
         '</div>');
 
+      // Slap on the overlay image if it exists, otherwise style it
       if( this.settings.overlayImage ) {
         var imgTag = '<img src="' + this.settings.overlayImage + '" class="vintageTxt_overlay" />';  
-        this.$elem.prepend( imgTag );
+        $el.prepend( imgTag );
       } else {
-        this.$elem.addClass('vtxt_defaultBorder');
+        $el.addClass('vtxt_defaultBorder');
       }
 
-      this.$elem.find('#vtxt_ContentInputDiv').hide()
+      // Make sure the input box starts out hidden
+      if( !this.settings.autoStart && promptEnabled ) {
+        $el.find('#vtxt_ContentInputDiv').hide()
+      }
+
       // Make it nice and green
       $el.addClass('vtxt_wrapper');
 
       // Create event handler for enter key
       $el.on('keyup.vintageTxt', this.inputSubmit );
-
+      
+      // Focus into the input box if the container is clicked.      
       $el.click(function() {
         if ( $el.find('#vtxt_ContentInput') )
           $el.find('#vtxt_ContentInput').focus();
       });
 
+      // do something after rendering is complete
       if (callback) callback.call(this);
     },
 
+    /**
+     * Type out all of the lines and characters
+     * in settings.text.  Each array of text will
+     * be one new line.
+     * 
+     * @return {*}
+     */
     startTyping : function startTyping() {
 
-      var $self      = this
+      var self       = this
         , textDiv    = this.$elem.find('#vtxt_ContentText')
         , index      = 0
         , text_pos   = 0
@@ -216,39 +244,49 @@
             str_length = settings.text[index].length;
             setTimeout(typeText,800);
           } else {
-            $self.endTyping();
+            self.endTyping();
           }
         } else {
           setTimeout(typeText,settings.textSpeed);
         }
       };
 
-      if ( $self.settings.text && $self.settings.text.length ) {
+      // If settings.text is set, hide the input and start typing
+      if ( self.settings.text && self.settings.text.length ) {
         this.$elem.find('#vtxt_ContentInput').val('');
         this.$elem.find('#vtxt_ContentInputDiv').hide();
         typeText();  
       } else {
+        // Otherwise clear the existing text
         textDiv.empty();
       }
       
     },
 
+    /**
+     * Called when startTyping() is done.
+     */
     endTyping : function endTyping() {
+      // Call the onFinishedTyping callback
       if (this.settings.onFinishedTyping) {
         this.settings.onFinishedTyping();
         this.settings.onFinishedTyping = null;
       } 
       
+      // Show the input prompt
       if( this.settings.promptEnabled ) {
         this.showPrompt();
       } 
     },
 
+    // Unhide the input prompt
     showPrompt : function showPrompt() {
       this.$elem.find('#vtxt_ContentInputDiv').show();
       this.$elem.find('#vtxt_ContentInput').focus();
     },
 
+    // Event handler for pressing the enter key when
+    // the input prompt has focus.
     inputSubmit : function inputSubmit( e ) {
       var code = (e.keyCode ? e.keyCode : e.which);
 
@@ -262,6 +300,7 @@
       }
     },
 
+    // Default callback for onEnterKey. For demo purposes
     doRandomSnark : function doRandomSnark() {
       methods.reset.call(this.$elem, [this.$elem.find('#vtxt_ContentInput').val(),getRandomSnark()]);
     }, 
