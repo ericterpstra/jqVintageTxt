@@ -92,6 +92,28 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+/*
+.vtxt_wrapper {
+    width: 598px;
+    height: 665px;
+    margin: 40px auto 10px;
+    
+}
+
+.vtxt_oldSchoolContent {
+    top: 79px;
+    left: 60px;
+    height: 214px;
+    width: 280px;
+    padding: 30px 43px;
+    font-size: 14px;
+    line-height: 16px;
+    box-shadow: inset 0px 0px 85px 5px rgba(0, 0, 0, 1);
+}
+
+.vtxt_wrapper input, .vtxt_wrapper input:focus {
+    font-size: 13px;
+}
 
 #imgCred {
     position: fixed;
@@ -100,7 +122,7 @@ textarea {
     font-family: Verdana,"Times New Roman",SERIF;
     font-size: 8px;
 }
-
+*/
 /* ==========================================================================
    Helper classes
    ========================================================================== */

@@ -125,7 +125,7 @@
           if ( textArrays.length ) {
             next = function(){setTimeout(playArray, 800);};
           } else {
-            self.settings.promptEnable = showPromptOnEnd;
+            self.settings.promptEnabled = showPromptOnEnd;
             next = null;
           }
           self.settings.onFinishedTyping = next;

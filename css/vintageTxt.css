@@ -1,30 +1,29 @@
 .vtxt_wrapper {
     position: relative;
-    width: 598px;
-    height: 665px;
+    width: 400px;
+    height: 300px;
     margin: 60px auto 0;
-    overflow: hidden;
     background: #000;
     background-image: url('../img/evenBG.gif');
+    overflow: hidden;
 }
 
 .vtxt_oldSchoolContent {
     position: absolute;
-    top: 79px;
-    left: 60px;
-    height: 214px;
-    width: 280px;
-    padding: 30px 43px;
-    white-space: pre-wrap;
-    font-size: 14px;
-    font-family: "Courier",fixed,monospace;
-    line-height: 16px;
+    top: 0px;
+    left: 0px;
+    height: 73%;
+    width: 80%;
+    padding: 10% 10%;
     color: #0F0;
+    font-family: "Courier",fixed,monospace;
+    font-size: 14px;
+    line-height: 16px;
+    white-space: pre-wrap;
     text-shadow: 0 0 3px;
     text-transform: uppercase;
     opacity: .75;
     z-index: 50;
-    box-shadow: inset 0px 0px 85px 5px rgba(0, 0, 0, 1);
 }
 
 .vtxt_oldSchoolContentText a{
