@@ -94,11 +94,12 @@
      */
     reset : function( text, options ) {
       var self = this.data('vintageTxt');
-      if (self) {
-        if (options) self.settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
-        self.settings.text = isArray(text) ? text : [text];
-        self.startTyping();
-      }
+      
+      self.settings = $.extend(self.settings, options || {});
+      self.settings.text = isArray(text) ? text : [text];
+      
+      self.startTyping();
+      
       return this;
     },
 
@@ -117,7 +118,8 @@
       } else {
         var self = this.data('vintageTxt');  
         var showPromptOnEnd = self.settings.promptEnabled;
-
+        var finalOnFinishedTyping = self.settings.onFinishedTyping;
+        
         function playArray() {
           self.settings.text = textArrays.shift();
           self.settings.promptEnabled = false;
@@ -126,7 +128,7 @@
             next = function(){setTimeout(playArray, 800);};
           } else {
             self.settings.promptEnabled = showPromptOnEnd;
-            next = null;
+            next = finalOnFinishedTyping;
           }
           self.settings.onFinishedTyping = next;
           self.startTyping();
@@ -138,7 +140,8 @@
 
     updateOptions : function ( options ) {
       var self = this.data('vintageTxt');
-      if (options) self.settings = $.extend({}, $.fn.vintageTxt.settings, options || {});
+      self.settings = $.extend(self.settings, options || {});
+      return this;
     }
 
 
