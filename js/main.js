@@ -6,9 +6,9 @@ $(function() {
     go : function go() {
       this.el.vintageTxt({
          text : ["4 8 15 16 23 42",".  .  .  "]
-        ,textSpeed: 3
+        ,textSpeed: 300
         ,promptEnabled: false
-        //,overlayImage : 'img/lostpcB.png'
+        ,overlayImage : 'img/lostpcB.png'
         ,onFinishedTyping : this.intro
       });
 
@@ -21,7 +21,7 @@ $(function() {
       ];
 
       self.el.vintageTxt('updateOptions', {
-        textSpeed: 6
+        textSpeed: 60
         ,onFinishedTyping : null
         ,onEnterKey : self.pageOne
         ,promptEnabled : true
@@ -74,27 +74,21 @@ $(function() {
     },
 
     spawnNew : function spawnNew() {
+      $('#miniTxt').vintageTxt({
+        promptEnabled : false
+        ,onFinishedTyping : function(){setTimeout(self.finalPage, 1000);}
+      });
+    },
 
+    finalPage : function finalPage() {
+      self.el.vintageTxt('reset'
+        ,["So there you have it.","And plenty more features,","coming soon!","... in my imagination.","... so proabably never."," ","But never mind that.","Best to enjoy what you have,","and be greatful."," ","ttfn"]
+        ,{  onFinishedTyping: null
+           ,onEnterKey: null
+           ,promptEnabled : true
+         }
+      );
     }
-
-    // Fast typing!
-    // 
-    // Max
-    // Rows
-    // Per 
-    // Screen
-    // 
-    // 
-    // Callback!
-    // And multiple screens at once!
-    // 
-    // 
-    // And lots more features...
-    // in my imagination.
-    // Coming soon! 
-    // Or never.
-    // Probably never.
-
 
   }
   var self = VintageTxtTest;

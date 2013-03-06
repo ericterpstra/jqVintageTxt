@@ -92,28 +92,59 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-/*
-.vtxt_wrapper {
+
+/* Main VintageTxt Screen */
+
+#doThis.vtxt_wrapper {
     width: 598px;
     height: 665px;
-    margin: 40px auto 10px;
+    margin: 5px auto 10px;
     
 }
 
-.vtxt_oldSchoolContent {
+#doThis .vtxt_oldSchoolContent {
     top: 79px;
     left: 60px;
-    height: 214px;
-    width: 280px;
-    padding: 30px 43px;
+    height: 200px;
+    width: 274px;
+    padding: 40px 48px;
     font-size: 14px;
     line-height: 16px;
     box-shadow: inset 0px 0px 85px 5px rgba(0, 0, 0, 1);
 }
 
-.vtxt_wrapper input, .vtxt_wrapper input:focus {
+#doThis .vtxt_wrapper input, #doThis .vtxt_wrapper input:focus {
     font-size: 13px;
 }
+
+/* Mini VintageTxt Screen */
+
+#miniTxt {
+    width: 170px;
+    height: 59px;
+    margin: 5px auto 5px;
+}
+
+#miniTxt .vtxt_oldSchoolContent {
+    height: 41%;
+    padding: 10% 15%;
+    font-size: 12px;
+    line-height: 14px;
+    box-shadow: inset 0px 0px 15px 5px rgba(0, 0, 0, 1);
+}
+
+#miniTxt .vtxt_wrapper input, #miniTxt .vtxt_wrapper input:focus {
+    font-size: 11px;
+}
+
+#miniTxt .vtxt_defaultBorder {
+    -webkit-box-shadow: inset 0px 0px 5px 1px rgba(0, 0, 0, 1);
+    box-shadow: inset 0px 0px 5px 1px rgba(0, 0, 0, 1);
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+
+/* Boring stuff */
 
 #imgCred {
     position: fixed;
@@ -122,7 +153,7 @@ textarea {
     font-family: Verdana,"Times New Roman",SERIF;
     font-size: 8px;
 }
-*/
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
