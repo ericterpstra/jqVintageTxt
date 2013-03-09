@@ -15,7 +15,7 @@ Load them up in your project. Make sure you have jQuery 1.7 or later, as well.
 `<div id="foo"></div>`
 
 ### Call the vintageTxt() function
-$('#foo').vintageTxt();
+`$('#foo').vintageTxt();`
 
 ## Features
 
@@ -39,6 +39,7 @@ $('#foo').vintageTxt();
 
 A more robust example:
 
+```javascript
 $('#foo').vintageTxt({
   text: ["And I think to myself,","what a wonderful world.","Oooh, yeah..."],
   textSpeed: 150,
@@ -48,6 +49,7 @@ $('#foo').vintageTxt({
     $('#foo').delay(500).fadeOut(2000);
   }
 });
+```
 
 ## Credits
 
