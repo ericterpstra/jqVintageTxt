@@ -4,6 +4,13 @@ Slap a vintage looking text terminal on your webpage. Have it type something. Th
 
 ## Quick start
 
+### Get the Plugin:
+Get these two files:
+* jquery.vintageTxt.js
+* jquery.vintageTxt.css
+
+Load them up in your project. Make sure you have jQuery 1.7 or later, as well.
+
 ### Create a container div:
 <div id="foo"></div>
 
