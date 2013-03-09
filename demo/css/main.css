@@ -154,6 +154,14 @@ textarea {
     font-size: 8px;
 }
 
+div#meStuff {
+    position: fixed;
+    top: 0px;
+    left : 5px;
+    font-family: Verdana,"Times New Roman",SERIF;
+    font-size: 10px;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
