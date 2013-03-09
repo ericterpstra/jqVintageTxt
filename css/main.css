@@ -137,7 +137,7 @@ textarea {
     font-size: 11px;
 }
 
-#miniTxt .vtxt_defaultBorder {
+#miniTxt.vtxt_defaultBorder {
     -webkit-box-shadow: inset 0px 0px 5px 1px rgba(0, 0, 0, 1);
     box-shadow: inset 0px 0px 5px 1px rgba(0, 0, 0, 1);
     -webkit-border-radius: 12px;
