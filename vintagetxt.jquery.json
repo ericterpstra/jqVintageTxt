@@ -6,6 +6,7 @@
     "name": "Eric Terpstra",
     "url": "http://ericterpstra.com"
     },
+  "description": "VintageTxt is a fun little widget that lets you communicate a message to your website's visitors through a simulated monochromatic, scanlined interface - one character at a time.  There is also a styled input prompt to make it semi-interactive.  It's hard to explaing in words, so best just to view the demo. Enjoy!",  
   "licenses": [{
       "type": "MIT",
       "url": "http://opensource.org/licenses/MIT"
@@ -13,6 +14,7 @@
     "dependencies": {
       "jquery": ">=1.7.0"
     },
-    "demo": "http://ericterpstra.com/apps/vintageTxt/demo/index.html"
+    "demo": "http://ericterpstra.com/apps/vintageTxt/demo/index.html",
+    "keywords": ["ui","input","effect"]
 
 }
