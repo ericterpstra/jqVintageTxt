@@ -2,7 +2,10 @@
   "name": "vintagetxt",
   "version": "0.1.0",
   "title": "VintageTxt",
-  "author": "Eric Terpstra",
+  "author": {
+    "name": "Eric Terpstra",
+    "url": "http://ericterpstra.com"
+    },
   "licenses": [{
       "type": "MIT",
       "url": "http://opensource.org/licenses/MIT"
