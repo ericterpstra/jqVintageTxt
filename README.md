@@ -12,7 +12,7 @@ Get these two files:
 Load them up in your project. Make sure you have jQuery 1.7 or later, as well.
 
 ### Create a container div:
-<div id="foo"></div>
+`<div id="foo"></div>`
 
 ### Call the vintageTxt() function
 $('#foo').vintageTxt();
