@@ -1,0 +1,54 @@
+.vtxt_wrapper {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    margin: 60px auto 0;
+    background: #000;
+    background-image: url('../img/evenBG.gif');
+    overflow: hidden;
+}
+
+.vtxt_oldSchoolContent {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 73%;
+    width: 80%;
+    padding: 10% 10%;
+    color: #0F0;
+    font-family: "Courier",fixed,monospace;
+    font-size: 14px;
+    line-height: 16px;
+    white-space: pre-wrap;
+    text-shadow: 0 0 3px;
+    text-transform: uppercase;
+    opacity: .75;
+    z-index: 50;
+}
+
+.vtxt_oldSchoolContentText a{
+    color: #0F0;
+}
+
+.vintageTxt_overlay{
+    position: relative;
+    z-index: 99;
+}
+
+.vtxt_wrapper input, .vtxt_wrapper input:focus {
+    color: #0f0;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    font-family: "Courier",fixed,monospace;
+    text-shadow: 0 0 3px;
+    text-transform: uppercase;
+}
+
+.vtxt_defaultBorder {
+    -webkit-box-shadow: inset 0px 0px 85px 5px rgba(0, 0, 0, 1);
+    box-shadow: inset 0px 0px 85px 5px rgba(0, 0, 0, 1);
+    -webkit-border-radius: 35px;
+    border-radius: 35px;
+}
