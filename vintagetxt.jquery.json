@@ -1,0 +1,15 @@
+{
+  "name": "vintagetxt",
+  "version": "0.1.0",
+  "title": "VintageTxt",
+  "author": "Eric Terpstra",
+  "licenses": [{
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }],
+    "dependencies": {
+      "jquery": ">=1.7.0"
+    },
+    "demo": "http://ericterpstra.com/apps/vintageTxt/demo/index.html"
+
+}
