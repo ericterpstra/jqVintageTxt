@@ -125,7 +125,7 @@
           self.settings.promptEnabled = false;
           var next = null;
           if ( textArrays.length ) {
-            next = function(){setTimeout(playArray, 800);};
+            next = function(){setTimeout(playArray, self.settings.linePause);};
           } else {
             self.settings.promptEnabled = showPromptOnEnd;
             next = finalOnFinishedTyping;
@@ -248,7 +248,7 @@
           if( index != settings.text.length )
           {
             str_length = settings.text[index].length;
-            setTimeout(typeText,800);
+            setTimeout(typeText,self.settings.linePause);
           } else {
             self.endTyping();
           }

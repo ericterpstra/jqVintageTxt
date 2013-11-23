@@ -1,6 +1,6 @@
 {
   "name": "vintagetxt",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "title": "VintageTxt",
   "author": {
     "name": "Eric Terpstra",
@@ -15,6 +15,6 @@
       "jquery": ">=1.7.0"
     },
     "demo": "http://ericterpstra.com/apps/vintageTxt/demo/index.html",
-    "keywords": ["ui","input","effect"]
+    "keywords": ["ui","input","effect","vintage","retro"]
 
 }
